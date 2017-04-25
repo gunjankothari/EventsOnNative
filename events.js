@@ -2,7 +2,7 @@
 * @Author: Gunjan
 * @Date:   2017-04-24 14:30:30
 * @Last Modified by:   Gunjan
-* @Last Modified time: 2017-04-24 17:22:03
+* @Last Modified time: 2017-04-25 14:52:04
 */
 
 'use strict';
@@ -25,7 +25,7 @@
 	    	once = useCapture;
 	    }
 
-	    if(typeof this.events[event][selector] !== 'function'){    	
+	    if(typeof this.events[event][selector] !== 'object'){    	
 	    	this.events[event][selector] = [];
 	    }
 
@@ -37,10 +37,7 @@
 		   }		
 	    });
 	    
-
 	    this.addEventListener(event, this.events[event][selector][this.events[event][selector].length-1], useCapture, once);
-
-
 	}
 	HTMLElement.prototype.off = function(event, selector){
 		
@@ -57,7 +54,6 @@
 		Object.keys(object).map(function(objectKey, index) {
 		    if(typeof selector === "undefined" || objectKey === selector){
 		    	that.events[ event ][ objectKey ].forEach(function(listener, index){
-		    		debugger;
 		    		that.removeEventListener(event, listener);	
 		    	});
 		    }
@@ -66,7 +62,7 @@
 	}
 	Object.prototype.on = function(event, selector, listener, useCapture, once){
 		for(var i = 0; i < this.length ; i++){
-			this[i].on(event, selector, listener);
+			this[i].on(event, selector, listener, useCapture, once);
 		}
 	}
 	Object.prototype.off = function(event, selector){
