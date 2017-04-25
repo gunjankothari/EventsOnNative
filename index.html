@@ -5,5 +5,29 @@
         <script src="events.js"></script>
     </head>
     <body>
+    	<div class="main">
+    		<span id="lbl">Button not yet clicked.</span>
+    		<button id="btn">Toggle</button>
+    	</div>
+    	<div class="main">
+    		<span id="lbl">Button not yet clicked.</span>
+    		<button id="btn">Toggle</button>
+    	</div>
+    	<button id="bind">Bind Event</button>
+    	<button id="unbind">UnBind Event</button>
     </body>
+    <script>
+    	document.querySelector('#bind').on('click',function(){
+    			document.querySelectorAll('.main').on('click','#btn',function(event){
+    				this.count = (this.count == undefined ? 1 : ++this.count)
+		    		this.querySelector('#lbl').innerHTML = "Button clicked now. Count = "+ this.count;
+		    		console.log("Clicked");
+		    	});
+
+		    	console.log("Event Binded");
+    	});
+    	document.querySelector('#unbind').on('click',function(){
+    		document.querySelectorAll('.main').off('click', '#btn');
+    	});
+    </script>
 </html>
